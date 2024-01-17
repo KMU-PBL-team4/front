@@ -1,0 +1,73 @@
+.card-title {
+    font-size: larger;
+    font-weight: bold;
+
+}
+.card-header1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    padding: 0.75rem 1.25rem;
+    position: relative;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.card-header:last-child::after{
+    display: none;
+}
+.pagination {
+    margin-top: 20px;
+    justify-content: center;
+    margin-bottom: 0px;
+}
+.visually-hidden {
+    display: none;
+}
+
+.pagination {
+    margin-top: 20px;
+}
+.pagination button {
+    width: 40px;
+    height: 40px;
+}
+
+.pagination-selected {
+    background-color: #05d686;
+    border: 1px solid #05d686;
+    color: #f7f7f7;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+
+}
+.pagination-not-selected {
+    background-color: #f7f7f7;
+    border: 1px solid #f7f7f7;
+}
+.pagination-buttons {
+    border: 0.5px solid black;
+    border-radius: 4px;
+}
+
+.table-actions button {
+    margin-right: 5px;
+    width: 50px;
+    height: 35px;
+    border-radius: 5px;
+    font-weight: 500;
+
+}
+.table-actions div {
+    display: inline;
+}
+.table-actions div:nth-child(2) button{
+    background-color: #3894FF;
+    color: white;
+}
+
+.table-actions div:nth-child(3) button {
+    background-color: #DB4455;
+    color: white;
+}

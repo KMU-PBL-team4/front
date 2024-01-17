@@ -1,0 +1,89 @@
+.App {
+  text-align: center;
+  font-family: "nanum-gothic"
+}
+
+.main-buttons {
+  margin: 20px 0px
+}
+
+.main-buttons button {
+  width: 40%;
+  height: 60px;
+  margin: 0px 20px;
+  border-radius: 5px;
+  font-size: large;
+  font-weight: bolder;
+}
+
+.main-buttons button:first-child {
+  background-color: #05d686;
+  border: 1px solid #05d686;
+  color: white;
+}
+
+.main-buttons button:last-child {
+  background-color: #666666;
+  border: 1px solid #666666;
+  color: white
+}
+
+.navbar {
+  background-color: white;
+  width: 100%;
+  border-bottom: 0.5px solid #666666;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .15);
+}
+
+.navbar span {
+  font-size: large;
+}
+.navbar-user {
+  margin-right: 20px;
+}
+.navbar-user a{
+ margin-right: 15px; 
+ color: #666666
+}
+.navbar-user a:hover {
+  color: #666666;
+  text-decoration : underline;
+}
+
+.logo {
+  width: 115px;
+  height: 45px;
+  margin-left: 20px;
+}
+
+.main-logo {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.main-ads {
+  padding: 20px 0 50px 40px;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  /* background-color: #05d686; */
+}
+.main-ads {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7),
+      rgba(0, 0, 0, 0.5)), url("./images/mainImg.jpg");
+  background-size: cover;
+  color: white;
+}
+
+.main-all span {
+  display: inline;
+  width: 200px;
+  color: white;
+}

@@ -7,6 +7,7 @@ import { AddModal, TestModal } from "../components/modal";
 
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import AdModal from "../components/adModal";
 
 
 
@@ -22,8 +23,9 @@ const MainPage = () => {
                 <Button variant="primary" onClick={() => setModalShow(true)}>
                     광고 추가
                 </Button>
+                <AdModal show={modalShow} onHide={() => setModalShow(false)} />
 
-                <AddModal show={modalShow} onHide={() => setModalShow(false)} />
+                {/* <AddModal show={modalShow} onHide={() => setModalShow(false)} /> */}
 
                 <Button variant="primary" onClick={() => setTestModalShow(true)}>
                     광고 테스트

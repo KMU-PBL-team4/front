@@ -4,27 +4,42 @@ import "../styles/plugins/datatables-responsive/css/responsive.bootstrap4.min.cs
 import "../styles/plugins/datatables-buttons/css/buttons.bootstrap4.min.css"
 import "../styles/dist/css/adminlte.min.css?v=3.2.0"
 
-// import Pagination from 'react-bootstrap/Pagination';
-
 import "../styles/components/cardContainer.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import axios from "axios"
 import { AddModal, DeleteModal, EditModal } from "./modal";
 import SearchForm from "./searchForm"
+import AdModal from "./adModal"
 
 const itemsPerPage = 5;
-const cardexample = {
-    idx: 1,
-    title: '현대차',
-    subheading: '멋있는이벤트',
-    ExposureDatetime1: new Date().getTime(),
-    ExposureDatetime2: new Date().getTime(),
-    count: 100,
-    regdate: Date.now(),
-}
+const cardexample2 = [
+    {
+        "id": 1,
+        "title": "제품1",
+        "shortHeading": "제품1 소개",
+        "startExposure": 1705374000000,
+        "endExposure": 1705460400000,
+        "count": 100,
+        "regDate": 1705380058000,
+        "description": "제품1에 대한 설명입니다."
+    },
+    {
+        "id": 2,
+        "title": "서비스2",
+        "shortHeading": "서비스2 소개",
+        "startExposure": 1705559400000,
+        "endExposure": 1705743900000,
+        "count": 50,
+        "regDate": 1705380058000,
+        "description": "서비스2에 대한 설명입니다."
+    }
+]
+
+
+
 const CardContainer = (props) => {
 
-    let [cards, setCards] = useState([cardexample, cardexample, cardexample, cardexample, cardexample, cardexample])
+    let [cards, setCards] = useState(cardexample2)
 
     // 페이지 상태와 현재 페이지의 아이템을 계산합니다.
     const [currentPage, setCurrentPage] = useState(1);
@@ -37,13 +52,16 @@ const CardContainer = (props) => {
         setCurrentPage(pageNumber);
     };
 
-
-    function getCategory() {
-        axios.get('/neighbor-ad/get-add-list')
+    function getCards() {
+        axios.get('/neighbor-ad/ad-list')
             .then((result) => {
                 setCards(result.data);
             });
     }
+
+    // useEffect(() => {
+    //     getCards();
+    // }, [])
 
     return (
         <section class="content">
@@ -60,7 +78,7 @@ const CardContainer = (props) => {
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>idx</th>
+                                            <th>id</th>
                                             <th>title</th>
                                             <th>text</th>
                                             <th>Exposure datetime</th>
@@ -104,9 +122,9 @@ const CardContainer = (props) => {
 
 
 const Card = (props) => {
-    let ExposureDatetime10 = new Date(props.ExposureDatetime1);
-    let ExposureDatetime20 = new Date(props.ExposureDatetime2);
-    let NewRegDate = new Date(props.regdate)
+    let startExposureTime = new Date(props.startExposure);
+    let endExposureTime = new Date(props.endExposure);
+    let NewRegDate = new Date(props.regDate)
 
     const dateFormat = (date) => {
         let month = date.getMonth() + 1;
@@ -130,10 +148,10 @@ const Card = (props) => {
 
     return (
         <tr>
-            <td>{props.idx}</td>
+            <td>{props.id}</td>
             <td>{props.title}</td>
-            <td>{props.subheading}</td>
-            <td>{`${dateFormat(ExposureDatetime10)} ~ ${dateFormat(ExposureDatetime20)}`}</td>
+            <td>{props.shortHeading}</td>
+            <td>{`${dateFormat(startExposureTime)} ~ ${dateFormat(endExposureTime)}`}</td>
             <td>{props.count}</td>
             <td>{dateFormat(NewRegDate)}</td>
             <td className="table-actions">
@@ -145,15 +163,12 @@ const Card = (props) => {
                 <div>
                     <button onClick={() => setEditModalShow(true)}>수정</button>
 
-                    <EditModal
+                    <AdModal
+                        isEdit={true}
+                        propsFormData={props}
+
                         show={editModalShow}
                         onHide={() => setEditModalShow(false)}
-                        title="하나둘"
-                        subheading="작은설명들"
-                        startExposure="2018-06-12T19:30"
-                        endExposure="2024-06-12T19:30"
-                        count="1000"
-                        detail="디테일한자세한설명들"
                     />
                 </div>
                 <div>
@@ -161,11 +176,12 @@ const Card = (props) => {
 
                     <DeleteModal
                         show={deleteModalShow}
+                        propsFormData={props}
                         onHide={() => setDeleteModalShow(false)}
 
-                        title={cardexample.title}
-                        subheading={cardexample.subheading}
-                        writeDate={'12.12.03'}
+                        // title={cardexample2[0].title}
+                        // shortHeading={cardexample2[0].shortHeading}
+                        // writeDate={'12.12.03'}
                     />
                 </div>
             </td>

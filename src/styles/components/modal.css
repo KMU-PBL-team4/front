@@ -31,6 +31,11 @@
     height: 30px;
 }
 
+.modal-count {
+    width: 40%;
+    height: 30px;
+}
+
 .modal-contents input {
     height: 40px;
 }
@@ -89,8 +94,42 @@
     border: 1px solid lightgray;
     margin-right: 10px;
 }
+
 .modal-result-buttons button:nth-child(2) {
     /* background-color: lightgray; */
     border: 1px solid #3894FF;
     /* margin-right: 10px; */
+}
+
+.modal-close-btn {
+    width: 100px;
+    border: 1px solid #666666;
+    height: 50px;
+    font-size: large;
+    font-weight: bold;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+    padding-top: 10px;
+    background-color: buttonface;
+    color: black;
+    border-width: 2px;
+    border-style: outset;
+    margin-right: 10px;
+    float: right;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
+
+.modal-post-btn {
+    width: 100px;
+    background-color: #05d686;
+    color: white;
+    height: 50px;
+    font-size: large;
+    font-weight: bolder;
+    display: inline;
+    float: right;
+    border: 1px solid #05d686;
+    border-radius: 5px;
 }

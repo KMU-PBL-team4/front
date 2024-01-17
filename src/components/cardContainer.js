@@ -7,7 +7,7 @@ import "../styles/dist/css/adminlte.min.css?v=3.2.0"
 import "../styles/components/cardContainer.css"
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { AddModal, DeleteModal, EditModal } from "./modal";
+import { DeleteModal, DetailModal } from "./modal";
 import SearchForm from "./searchForm"
 import AdModal from "./adModal"
 
@@ -158,10 +158,18 @@ const Card = (props) => {
                 <div>
                     <button onClick={() => setDetailModalShow(true)}>상세</button>
 
-                    {/* <DetailModal show={detailModalShow} onHide={() => setDetailModalShow(false)} /> */}
+                    <DetailModal
+                        propsFormData={props}
+
+                        show={detailModalShow}
+                        onHide={() => setDetailModalShow(false)}
+                    />
                 </div>
                 <div>
-                    <button onClick={() => setEditModalShow(true)}>수정</button>
+                    <button
+                        onClick={() => setEditModalShow(true)}>
+                        수정
+                    </button>
 
                     <AdModal
                         isEdit={true}
@@ -179,9 +187,9 @@ const Card = (props) => {
                         propsFormData={props}
                         onHide={() => setDeleteModalShow(false)}
 
-                        // title={cardexample2[0].title}
-                        // shortHeading={cardexample2[0].shortHeading}
-                        // writeDate={'12.12.03'}
+                    // title={cardexample2[0].title}
+                    // shortHeading={cardexample2[0].shortHeading}
+                    // writeDate={'12.12.03'}
                     />
                 </div>
             </td>

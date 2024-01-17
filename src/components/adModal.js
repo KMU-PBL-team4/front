@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Form } from 'react-bootstrap';
 import axios from 'axios';
+import Button from './button';
 
 const AdModal = (props) => {
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         category: '영상',
         title: '',
-        shortHeading: '',
+        subHeading: '',
         startExposure: '',
         endExposure: '',
         contents: null,
         count: 500,
-        regDate: formatDate(),
+        regDate: new Date().getTime(),
     });
 
     useEffect(() => {
@@ -32,12 +33,22 @@ const AdModal = (props) => {
 
     const handleChange = (event) => {
         const { name, value, files } = event.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: name === 'contents' ? files[0] : value,
-        }));
-    };
 
+        if (name === 'startExposure' || name === 'endExposure') {
+            const exposureTime = Date.parse(value)
+
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: name === 'contents' ? files[0] : exposureTime,
+            }));
+        } else {
+            setFormData((prevData) => ({
+                ...prevData,
+                [name]: name === 'contents' ? files[0] : value,
+            }));
+        }
+
+    };
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -56,17 +67,16 @@ const AdModal = (props) => {
             });
     };
 
-    function formatDate(i = null) {
-        const today = i ? new Date(i) : new Date();
+    function formatDate(epochTime) {
+        const today = new Date(epochTime)
         const year = today.getFullYear();
         const month = (today.getMonth() + 1).toString().padStart(2, '0');
         const date = today.getDate().toString().padStart(2, '0');
         const hours = today.getHours().toString().padStart(2, '0');
         const minutes = today.getMinutes().toString().padStart(2, '0');
-        const formattedDate = `${year}년 ${month}월 ${date}일 ${hours}시 ${minutes}분`;
+        const formattedDate = `${year}년 ${month}월 ${date}일 ${hours}:${minutes}`;
         return formattedDate;
     }
-    
 
     return (
         <>
@@ -84,12 +94,13 @@ const AdModal = (props) => {
                             <option>텍스트</option>
                         </select>
                         <input type="text" placeholder="제목" name="title" value={formData.title} onChange={handleChange}></input>
-                        <input type="text" placeholder="간단한 설명" name="shortHeading" value={formData.shortHeading} onChange={handleChange}></input>
+                        <input type="text" placeholder="간단한 설명" name="subHeading" value={formData.subHeading} onChange={handleChange}></input>
                         게시기간
                         <div className="modal-contents-date">
-                            <input type="datetime-local" placeholder="시작 날짜" name="startExposure" value={formData.startExposure} onChange={handleChange}></input>
-                            <span>~</span>
-                            <input type="datetime-local" placeholder="종료 날짜" name="endExposure" value={formData.endExposure} onChange={handleChange}></input>
+
+                            <input type="datetime-local" placeholder="시작 날짜" name="startExposure" onChange={handleChange} />
+                            <span onClick={console.log(formData)}>~</span>
+                            <input type="datetime-local" placeholder="종료 날짜" name="endExposure" onChange={handleChange} />
                         </div>
                         {
                             formData.category === '영상'
@@ -106,14 +117,14 @@ const AdModal = (props) => {
                         }
                         목표 횟수
                         <input className="modal-count" type="number" name="count" step={"500"} min="500" max="5000" value={formData.count} onChange={handleChange} />
-                        등록일자<input type="text" name="regDate" value={isEditing ? formatDate(formData.regDate) : formData.regDate} readOnly />
+                        등록일자<input type="text" name="regDate" value={formatDate(formData.regDate)} readOnly />
                         <div className="modal-btns">
                             <button className="modal-post-btn" type="submit">{isEditing ? '광고 수정' : '광고 추가'}</button>
                             <div className="modal-close-btn" onClick={props.onHide}><span>닫기</span></div>
                         </div>
                     </form>
                 </Modal.Body>
-            </Modal>
+            </Modal >
         </>
     );
 };

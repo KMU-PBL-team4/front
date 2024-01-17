@@ -57,9 +57,9 @@
 
 .modal-target button {
     height: 40px;
-    border: 1px solid #3894FF;
+    border: 0px;
     border-radius: 5px;
-    background-color: #3894FF;
+    font-weight: bold;
 }
 
 .modal-result {
@@ -74,10 +74,6 @@
     gap: 5px
 }
 
-.modal-result textarea {
-    min-height: 150px;
-}
-
 .modal-result-buttons {
     height: 50px;
 }
@@ -86,19 +82,14 @@
     height: 40px;
     width: 48.75%;
     border-radius: 5px;
-    background-color: #3894FF;
+    border: 0px;
+    font-weight: bolder;
 }
 
 .modal-result-buttons button:nth-child(1) {
     background-color: lightgray;
     border: 1px solid lightgray;
     margin-right: 10px;
-}
-
-.modal-result-buttons button:nth-child(2) {
-    /* background-color: lightgray; */
-    border: 1px solid #3894FF;
-    /* margin-right: 10px; */
 }
 
 .modal-close-btn {
@@ -123,13 +114,35 @@
 
 .modal-post-btn {
     width: 100px;
-    background-color: #05d686;
+    background-color: rgb(26, 192, 46);
     color: white;
     height: 50px;
     font-size: large;
     font-weight: bolder;
     display: inline;
     float: right;
-    border: 1px solid #05d686;
+    border: 1px solid rgb(26, 192, 46);
     border-radius: 5px;
+}
+
+.delete-img {
+    max-width: 460px;
+    min-height: 300px;
+    border: 0px;
+}
+
+.modal-detail-contents {
+    padding: 20px;
+
+}
+
+.modal-detail-contents pre {
+    color: white;
+    /* color: rgb(136, 186, 102); */
+    font-family: "D2Coding";
+}
+
+.modal-detail {
+    background-color: rgb(30, 31, 41);
+    color: white;
 }

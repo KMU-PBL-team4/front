@@ -19,7 +19,7 @@ const App = () => {
       <div className='main-ads'>
         {/* <img src={image}></img> */}
         <span>5400만 + 네이버 유저를 내 사업의 잠재고객으로,</span>
-        <h4>네이버 ADs</h4>
+        <h2>네이버 ADs</h2>
       </div>
       <MainPage></MainPage>
     </div>

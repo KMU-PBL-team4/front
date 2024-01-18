@@ -113,6 +113,7 @@ const AdModal = (props) => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="grid-example">
+                <button onClick={() => {console.log(formData)}}></button>
                     <form className="modal-contents" onSubmit={handleSubmit}>
                         <select onChange={handleSelectChange} value={formData.category}>
                             <option>영상</option>
@@ -137,26 +138,48 @@ const AdModal = (props) => {
                             }
                         </div>
                         {
-                            formData.category === '영상'
-                                ? <Form.Group controlId="formFile" className="mb-3">
-                                    <Form.Label>영상 등록</Form.Label>
-                                    <Form.Control type="file" name="contents" onChange={handleChange} accept="video/*" />
-                                </Form.Group>
-                                : formData.category === '사진'
+                            isEditing == true
+                                ? formData.category === '영상' || null
                                     ? <Form.Group controlId="formFile" className="mb-3">
-                                        <Form.Label>사진 등록</Form.Label>
-                                        <Form.Control type="file" name="contents" onChange={handleChange} accept="image/*" />
+                                        <Form.Label>영상 등록</Form.Label>
+                                        <Form.Control type="file" name="contents" value={formData.contents} onChange={handleChange} accept="video/*" />
                                     </Form.Group>
-                                    : <textarea
-                                        type="text"
-                                        placeholder="광고 텍스트 내용"
-                                        name="contents"
-                                        value={formData.contents}
-                                        onChange={handleTextareaChange}>
-                                    </textarea>
+                                    : formData.category === '사진'
+                                        ? <Form.Group controlId="formFile" className="mb-3">
+                                            <Form.Label>사진 등록</Form.Label>
+                                            <Form.Control type="file" name="contents" value={formData.contents} onChange={handleChange} accept="image/*" />
+                                        </Form.Group>
+                                        : <textarea
+                                            type="text"
+                                            placeholder="광고 텍스트 내용"
+                                            name="contents"
+                                            value={formData.contents}
+                                            onChange={handleTextareaChange}>
+                                        </textarea>
+                                : formData.category === '영상' || null
+                                    ? <Form.Group controlId="formFile" className="mb-3">
+                                        <Form.Label>영상 등록</Form.Label>
+                                        <Form.Control type="file" name="contents" onChange={handleChange} accept="video/*" />
+                                    </Form.Group>
+                                    : formData.category === '사진'
+                                        ? <Form.Group controlId="formFile" className="mb-3">
+                                            <Form.Label>사진 등록</Form.Label>
+                                            <Form.Control type="file" name="contents" onChange={handleChange} accept="image/*" />
+                                        </Form.Group>
+                                        : <textarea
+                                            type="text"
+                                            placeholder="광고 텍스트 내용"
+                                            name="contents"
+                                            value={formData.contents}
+                                            onChange={handleTextareaChange}>
+                                        </textarea>
                         }
                         목표 횟수
-                        <input className="modal-count" type="number" name="count" step={"500"} min="500" max="5000" value={formData.count} onChange={handleChange} />
+                        {
+                            isEditing == true
+                                ? <input className="modal-count" type="number" name="count" value={formData.count} readOnly />
+                                : <input className="modal-count" type="number" name="count" step={"500"} min="500" max="5000" value={formData.count} onChange={handleChange} />
+                        }
                         등록일자<input type="text" name="regDate" value={formatDate(formData.regDate)} readOnly />
                         <div className="modal-btns">
                             <button className="modal-post-btn" type="submit">{isEditing ? '광고 수정' : '광고 추가'}</button>

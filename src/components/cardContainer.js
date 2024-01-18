@@ -10,26 +10,31 @@ import axios from "axios"
 import { DeleteModal, DetailModal } from "./modal";
 import SearchForm from "./searchForm"
 import AdModal from "./adModal"
+import imgEx from "../images/ADs.png"
 
 const itemsPerPage = 10;
 const cardexample2 = [
     {
         "id": 1,
+        "category": "영상",
         "title": "제품1",
         "shortHeading": "제품1 소개askjfhlasdkjfalsdkjfa;sldkfj;asdlkfj;l",
         "startExposure": 1705374000000,
         "endExposure": 1705460400000,
         "count": 100,
+        "content": imgEx,
         "regDate": 1705380058000,
         "description": "제품1에 대한 설명입니다."
     },
     {
         "id": 2,
+        "category": "영상",
         "title": "서비스2",
         "shortHeading": "서비스2 소개",
         "startExposure": 1705559400000,
         "endExposure": 1705743900000,
         "count": 50,
+        "content": imgEx,
         "regDate": 1705380058000,
         "description": "서비스2에 대한 설명입니다."
     }
@@ -59,7 +64,7 @@ const CardContainer = (props) => {
                 console.error('Error in cardContainer.js:', error);
             });
     }
-    
+
 
     useEffect(() => {
         getCards();
@@ -73,7 +78,7 @@ const CardContainer = (props) => {
                         <div class="card">
                             <div class="card-header1">
                                 <span class="card-title">{props.cardTitle} 님의 광고 목록입니다.</span>
-                                <SearchForm></SearchForm>
+                                <SearchForm/>
                             </div>
 
                             <div class="card-body">

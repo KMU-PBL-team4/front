@@ -46,7 +46,14 @@
 }
 
 .navbar-user a {
-  margin-right: 15px;
+  padding-right: 7px;
+  color: #666666
+}
+.navbar-user a:first-child {
+  border-right: 1px solid #666666;
+}
+.navbar-user a {
+  margin-right: 7px;
   color: #666666
 }
 

@@ -4,7 +4,6 @@ import "../styles/components/searchForm.css"
 import "../App.css"
 
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import AdModal from "../components/adModal";
 import TestModal from "../components/testModal";
 
@@ -17,14 +16,14 @@ const MainPage = () => {
     return (
         <>
             <div className="main-buttons">
-                <Button variant="primary" onClick={() => setModalShow(true)}>
+                <button variant="primary" onClick={() => setModalShow(true)}>
                     광고 추가
-                </Button>
+                </button>
                 <AdModal show={modalShow} onHide={() => setModalShow(false)} />
 
-                <Button variant="primary" onClick={() => setTestModalShow(true)}>
+                <button variant="primary" onClick={() => setTestModalShow(true)}>
                     광고 테스트
-                </Button>
+                </button>
 
                 <TestModal show={testModalShow} onHide={() => setTestModalShow(false)} />
             </div>

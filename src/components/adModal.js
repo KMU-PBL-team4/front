@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Form } from 'react-bootstrap';
 import axios from 'axios';
-import Button from './button';
 
 const AdModal = (props) => {
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         category: '영상',
         title: '',
-        subHeading: '',
+        shortHeading: '',
         startExposure: '',
         endExposure: '',
         contents: null,
@@ -49,6 +48,16 @@ const AdModal = (props) => {
         }
 
     };
+
+    const handleTextareaChange = (event) => {
+        const { name, value } = event.target;
+
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
 
@@ -58,11 +67,11 @@ const AdModal = (props) => {
 
         axios[requestMethod](apiEndpoint, formData)
             .then(response => {
-                console.log('Server Response:', response.data);
+                console.log('Server Response in Submit:', response.data);
                 // 서버 응답시 추가 처리
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Error in Submit:', error);
                 // 오류 발생시 추가 처리
             });
     };
@@ -94,26 +103,33 @@ const AdModal = (props) => {
                             <option>텍스트</option>
                         </select>
                         <input type="text" placeholder="제목" name="title" value={formData.title} onChange={handleChange}></input>
-                        <input type="text" placeholder="간단한 설명" name="subHeading" value={formData.subHeading} onChange={handleChange}></input>
+                        <input type="text" placeholder="간단한 설명" name="shortHeading" value={formData.shortHeading} onChange={handleChange}></input>
                         게시기간
+
                         <div className="modal-contents-date">
 
                             <input type="datetime-local" placeholder="시작 날짜" name="startExposure" onChange={handleChange} />
-                            <span onClick={console.log(formData)}>~</span>
+                            <span>~</span>
                             <input type="datetime-local" placeholder="종료 날짜" name="endExposure" onChange={handleChange} />
                         </div>
                         {
                             formData.category === '영상'
                                 ? <Form.Group controlId="formFile" className="mb-3">
                                     <Form.Label>영상 등록</Form.Label>
-                                    <Form.Control type="file" name="contents" onChange={handleChange} />
+                                    <Form.Control type="file" name="contents" onChange={handleChange} accept="video/*" />
                                 </Form.Group>
                                 : formData.category === '사진'
                                     ? <Form.Group controlId="formFile" className="mb-3">
                                         <Form.Label>사진 등록</Form.Label>
-                                        <Form.Control type="file" name="contents" onChange={handleChange} />
+                                        <Form.Control type="file" name="contents" onChange={handleChange} accept="image/*" />
                                     </Form.Group>
-                                    : <textarea type="text" placeholder="광고 텍스트 내용" name="contents" value={formData.contents} onChange={handleChange}></textarea>
+                                    : <textarea
+                                        type="text"
+                                        placeholder="광고 텍스트 내용"
+                                        name="contents"
+                                        value={formData.contents}
+                                        onChange={handleTextareaChange}>
+                                    </textarea>
                         }
                         목표 횟수
                         <input className="modal-count" type="number" name="count" step={"500"} min="500" max="5000" value={formData.count} onChange={handleChange} />

@@ -52,7 +52,28 @@
 .modal-target {
     border: 1px solid #666666;
     border-radius: 10px;
-    padding: 10px;
+    padding: 20px 20px 10px 20px;
+}
+
+.modal-target-find {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+}
+
+.modal-target-find span {
+    margin-right: 30px;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.modal-target-find select {
+    width: 100px;
+    height: 25px;
+    border-radius: 0;
+    border: 1px solid lightgray;
+    outline: none;
+
 }
 
 .modal-target button {
@@ -66,7 +87,7 @@
     margin-top: 5px;
     border: 1px solid #666666;
     border-radius: 10px;
-    padding: 10px;
+    padding: 5px;
     height: 230px;
     display: flex;
     flex-direction: column;
@@ -132,8 +153,8 @@
 }
 
 .modal-detail-contents {
-    padding: 20px;
-
+    padding: 10px;
+    overflow-x: auto;
 }
 
 .modal-detail-contents pre {
@@ -145,4 +166,52 @@
 .modal-detail {
     background-color: rgb(30, 31, 41);
     color: white;
+}
+
+.modal-view-contents img {
+    width: 458px;
+    height: 300px;
+}
+
+.modal-view-contents button {}
+
+.modal-next-btns {
+    position: absolute;
+    display: flex;
+    margin-top: -180px;
+    width: 92%;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+
+.modal-next-btns div {
+    opacity: 0.3;
+    cursor: pointer;
+}
+
+.modal-next-btns div:hover {
+    opacity: 0.9;
+}
+
+.carousel-inner {
+    width: 458px;
+    height: 300px;
+    background-color: #666666;
+}
+
+.carousel-control-prev {
+    color: black;
+    height: fit-content;
+    margin-top: 120px;
+}
+.carousel-control-next {
+    color: black;
+    height: fit-content;
+    margin-top: 120px;
+}
+.hit-btn {
+    position: absolute;
+    margin-top: -60px;
+    top: 300px;
+    right: 25px;
 }

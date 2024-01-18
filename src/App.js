@@ -1,7 +1,6 @@
 import './App.css';
 import MainPage from './pages/mainPage';
 import logo from '../src/images/ADs2.png'
-import image from "../src/images/mainImg.jpg"
 
 
 const App = () => {
@@ -17,7 +16,6 @@ const App = () => {
         </div>
       </div>
       <div className='main-ads'>
-        {/* <img src={image}></img> */}
         <span>5400만 + 네이버 유저를 내 사업의 잠재고객으로,</span>
         <h2>네이버 ADs</h2>
       </div>

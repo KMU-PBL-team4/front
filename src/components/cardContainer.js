@@ -11,12 +11,12 @@ import { DeleteModal, DetailModal } from "./modal";
 import SearchForm from "./searchForm"
 import AdModal from "./adModal"
 
-const itemsPerPage = 5;
+const itemsPerPage = 10;
 const cardexample2 = [
     {
         "id": 1,
         "title": "제품1",
-        "shortHeading": "제품1 소개",
+        "shortHeading": "제품1 소개askjfhlasdkjfalsdkjfa;sldkfj;asdlkfj;l",
         "startExposure": 1705374000000,
         "endExposure": 1705460400000,
         "count": 100,
@@ -34,8 +34,6 @@ const cardexample2 = [
         "description": "서비스2에 대한 설명입니다."
     }
 ]
-
-
 
 const CardContainer = (props) => {
 
@@ -56,12 +54,16 @@ const CardContainer = (props) => {
         axios.get('/neighbor-ad/ad-list')
             .then((result) => {
                 setCards(result.data);
+            })
+            .catch((error) => {
+                console.error('Error in cardContainer.js:', error);
             });
     }
+    
 
-    // useEffect(() => {
-    //     getCards();
-    // }, [])
+    useEffect(() => {
+        getCards();
+    }, [])
 
     return (
         <section class="content">
@@ -75,7 +77,7 @@ const CardContainer = (props) => {
                             </div>
 
                             <div class="card-body">
-                                <table id="example2" class="table table-bordered table-hover">
+                                <table id="example2" className="table table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th>id</th>
@@ -139,7 +141,7 @@ const Card = (props) => {
         minute = minute >= 10 ? minute : '0' + minute;
         second = second >= 10 ? second : '0' + second;
 
-        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+        return date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ":" + minute + ":" + second;
     }
 
     const [deleteModalShow, setDeleteModalShow] = useState(false);
@@ -147,11 +149,15 @@ const Card = (props) => {
     const [editModalShow, setEditModalShow] = useState(false);
 
     return (
-        <tr>
+        <tr className="card-tr">
             <td>{props.id}</td>
             <td>{props.title}</td>
             <td>{props.shortHeading}</td>
-            <td>{`${dateFormat(startExposureTime)} ~ ${dateFormat(endExposureTime)}`}</td>
+            <td>
+                <div>{`${dateFormat(startExposureTime)} ~`}</div>
+
+                <span>{`${dateFormat(endExposureTime)}`}</span>
+            </td>
             <td>{props.count}</td>
             <td>{dateFormat(NewRegDate)}</td>
             <td className="table-actions">
@@ -186,10 +192,6 @@ const Card = (props) => {
                         show={deleteModalShow}
                         propsFormData={props}
                         onHide={() => setDeleteModalShow(false)}
-
-                    // title={cardexample2[0].title}
-                    // shortHeading={cardexample2[0].shortHeading}
-                    // writeDate={'12.12.03'}
                     />
                 </div>
             </td>

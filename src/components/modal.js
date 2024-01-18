@@ -1,63 +1,62 @@
 import "../styles/components/modal.css"
-import Container from 'react-bootstrap/Container';
+
 import Modal from 'react-bootstrap/Modal';
 import Button from "./button";
 import img from '../../src/images/noImage.jpg'
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+
 export const handleImgError = (e) => {
     e.target.src = img;
 };
 
 
-const TestModal = (props) => {
-    return (
-        <>
-            <Modal {...props} aria-labelledby="contained-modal-title-vcenter">
-                <Modal.Header>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        광고 테스트
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body className="grid-example">
-                    <Container>
-                        <div className="modal-target">
-                            <form className="modal-contents" method="POST" action="/">
-                                <select>
-                                    <option>영상</option>
-                                    <option>사진</option>
-                                    <option>텍스트</option>
-                                </select>
-                                <input type="text" defaultValue={'Test Member Id'}></input>
-                                <input type="text" defaultValue={20230623}></input>
-                                <button type="submit" className="btnGreen">전송</button>
-                            </form>
-                        </div>
-                        <div className="modal-result">
-                            <div className="modal-detail-contents">
-                                <div className="modal-detail minHeight100">
-                                    <pre>{JSON.stringify("뭔가 넣어야 하는디", null, 2)}</pre>
-                                </div>
-                            </div>
-                            <div className="modal-result-buttons">
-                                <button>미리보기</button>
-                                <button className="btnGreen">확인</button>
-                            </div>
-                        </div>
-                    </Container>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button
-                        btnColor="btnGray"
-                        btnContent="닫기"
-                        onHide={props.onHide}
-                    >Close</Button>
-                </Modal.Footer>
-            </Modal>
-        </>
-    )
-}
+// const ViewModal = (props) => {
+
+//     const testExample = {
+//         "id": "123",
+//         "username": "필요한가?",
+//         "count": 500,
+//         "hit": 0,
+//     }
+
+//     return (
+//         <>
+//             <Modal {...props} aria-labelledby="contained-modal-title-vcenter">
+//                 <Modal.Header>
+//                     <Modal.Title id="contained-modal-title-vcenter">
+//                         광고 미리보기
+//                     </Modal.Title>
+//                 </Modal.Header>
+//                 <div className="modal-delete-contents">
+//                     <div className="modal-view-contents">
+//                         <img src={img}></img>
+//                         <Button
+//                             btnColor="btnRed"
+//                             btnContent='HIT'
+//                         />
+//                         <div className="modal-next-btns">
+//                             <div className="modal-before-btn" onClick={() => { console.log('ss') }}><FontAwesomeIcon icon={faCaretLeft} size="5x" /></div>
+//                             <div className="modal-next-btn" onClick={() => { console.log('ss') }}><FontAwesomeIcon icon={faCaretRight} size="5x" /></div>
+
+//                         </div>
+//                     </div>
+//                     <h3>Result</h3>
+//                     <div className="modal-result">
+//                         <div className="modal-detail-contents">
+//                             <div className="modal-detail minHeight100">
+//                                 <pre>{JSON.stringify(testExample, null, 2)}</pre>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </Modal >
+//         </>
+//     )
+// }
+
+
 
 const DeleteModal = (props) => {
     const [isDeleting, setIsDeleting] = useState(false);
@@ -168,4 +167,4 @@ const DetailModal = (props) => {
 
 
 
-export { TestModal, DeleteModal, DetailModal };
+export { DeleteModal, DetailModal };

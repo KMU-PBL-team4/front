@@ -1,15 +1,12 @@
 import CardContainer from "../components/cardContainer";
-import SearchForm from "../components/searchForm";
 
 import "../styles/components/searchForm.css"
 import "../App.css"
-import { AddModal, TestModal } from "../components/modal";
 
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import AdModal from "../components/adModal";
-
-
+import TestModal from "../components/testModal";
 
 
 const MainPage = () => {
@@ -24,8 +21,6 @@ const MainPage = () => {
                     광고 추가
                 </Button>
                 <AdModal show={modalShow} onHide={() => setModalShow(false)} />
-
-                {/* <AddModal show={modalShow} onHide={() => setModalShow(false)} /> */}
 
                 <Button variant="primary" onClick={() => setTestModalShow(true)}>
                     광고 테스트

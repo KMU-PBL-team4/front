@@ -29,12 +29,18 @@ const DeleteModal = (props) => {
     }, []);
 
     const handleDelete = () => {
-        axios.delete(`/neighbor-ad/${props.id}`).then(response => {
-            setIsDeleting(true);
-        }).catch(error => {
-            console.error('Delete Error:', error);
-        });
-        props.onHide();
+        axios.delete(`/neighbor-ad/${props.id}`)
+            .then(response => {
+                // 서버 응답을 받은 후에 실행되는 부분
+                setIsDeleting(true);
+            })
+            .catch(error => {
+                console.error('Error in Delete:', error);
+            })
+            .finally(() => {
+                // 성공이든 실패든 마지막에 실행되는 부분
+                props.onHide();
+            });
     };
 
     return (
@@ -47,7 +53,7 @@ const DeleteModal = (props) => {
             <div className="modal-delete-contents">
                 <h5>제목 : {formData.title}</h5>
                 <span>상세정보 : {formData.shortHeading}</span><br />
-                <img className="delete-img" src={''} onError={handleImgError} />
+                {/* <img className="delete-img" src={''} onError={handleImgError} /> */}
             </div>
             <Modal.Footer>
                 <Button
@@ -56,12 +62,11 @@ const DeleteModal = (props) => {
 
                     onHide={props.onHide} />
 
-                <Button
-                    btnColor="btnRed"
-                    btnContent='삭제'
+                <button
+                    className="btnRed modal-ok-btn"
 
                     onClick={handleDelete}
-                    disabled={isDeleting} />
+                    disabled={isDeleting} > 삭제 </button>
             </Modal.Footer>
         </Modal>
     );

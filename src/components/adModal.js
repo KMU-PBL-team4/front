@@ -1,19 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Form } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
+
 import axios from 'axios';
 
 const AdModal = (props) => {
     const [isEditing, setIsEditing] = useState(false);
+    const [preview, setPreview] = useState(false);
     const [formData, setFormData] = useState({
         category: '영상',
         title: '',
         shortHeading: '',
         startExposure: '',
         endExposure: '',
-        contents: null,
+        content: null,
         count: 500,
         regDate: new Date().getTime(),
     });
+
+    const handlePreview = () => {
+        if (preview == false)
+            setPreview(true)
+        else
+            setPreview(false)
+    }
 
     const handleSelectChange = (event) => {
         const value = event.target.value;
@@ -23,21 +33,42 @@ const AdModal = (props) => {
         }));
     };
 
+    const [selectedVideo, setSelectedVideo] = useState(null);
+
+    const handleFileChange = (event) => {
+        const { name, value, files } = event.target;
+        const file = files[0];
+        console.log(file)
+
+        if (file) {
+            const videoUrl = URL.createObjectURL(file);
+            console.log(videoUrl)
+
+            setSelectedVideo(videoUrl);
+        }
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: name === 'content' ? files : value,
+        }));
+
+        console.log(selectedVideo)
+    };
+
+
     const handleChange = (event) => {
         const { name, value, files } = event.target;
 
         if (name === 'startExposure' || name === 'endExposure') {
-            console.log(value)
             const exposureTime = Date.parse(value)
 
             setFormData((prevData) => ({
                 ...prevData,
-                [name]: name === 'contents' ? files[0] : exposureTime,
+                [name]: name === 'content' ? files[0] : exposureTime,
             }));
         } else {
             setFormData((prevData) => ({
                 ...prevData,
-                [name]: name === 'contents' ? files[0] : value,
+                [name]: name === 'content' ? files[0] : value,
             }));
         }
 
@@ -113,7 +144,23 @@ const AdModal = (props) => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="grid-example">
-                <button onClick={() => {console.log(formData)}}></button>
+                    {
+                        preview === true &&
+                        (formData.category === "영상" && selectedVideo ? (
+                            <video controls width="464" height="300">
+                                <source src={selectedVideo} type="video/mp4" />
+                            </video>
+                        ) : formData.category === "사진" && formData.content ? (
+                            <div>
+                                <Image src={formData.content} rounded />
+                            </div>
+                        ) : formData.category === "텍스트" && formData.content ? (
+                            <div className='preview-text'>
+                                <span>{formData.content}</span>
+                            </div>
+                        ) : null)
+                    }
+                    <button onClick={handlePreview}>미리보기</button>
                     <form className="modal-contents" onSubmit={handleSubmit}>
                         <select onChange={handleSelectChange} value={formData.category}>
                             <option>영상</option>
@@ -138,41 +185,30 @@ const AdModal = (props) => {
                             }
                         </div>
                         {
-                            isEditing == true
-                                ? formData.category === '영상' || null
+
+                            formData.category === '영상' || null
+                                ? <Form.Group controlId="formFile" className="mb-3">
+                                    {isEditing == true
+                                        ? <Form.Label>영상 수정</Form.Label>
+                                        : <Form.Label>영상 등록</Form.Label>
+                                    }
+                                    <Form.Control type="file" name="content" onChange={handleFileChange} accept="video/*" />
+                                </Form.Group>
+                                : formData.category === '사진'
                                     ? <Form.Group controlId="formFile" className="mb-3">
-                                        <Form.Label>영상 등록</Form.Label>
-                                        <Form.Control type="file" name="contents" value={formData.contents} onChange={handleChange} accept="video/*" />
+                                        {isEditing == true
+                                            ? <Form.Label>사진 수정</Form.Label>
+                                            : <Form.Label>사진 등록</Form.Label>
+                                        }
+                                        <Form.Control type="file" name="content" onChange={handleFileChange} accept="image/*" />
                                     </Form.Group>
-                                    : formData.category === '사진'
-                                        ? <Form.Group controlId="formFile" className="mb-3">
-                                            <Form.Label>사진 등록</Form.Label>
-                                            <Form.Control type="file" name="contents" value={formData.contents} onChange={handleChange} accept="image/*" />
-                                        </Form.Group>
-                                        : <textarea
-                                            type="text"
-                                            placeholder="광고 텍스트 내용"
-                                            name="contents"
-                                            value={formData.contents}
-                                            onChange={handleTextareaChange}>
-                                        </textarea>
-                                : formData.category === '영상' || null
-                                    ? <Form.Group controlId="formFile" className="mb-3">
-                                        <Form.Label>영상 등록</Form.Label>
-                                        <Form.Control type="file" name="contents" onChange={handleChange} accept="video/*" />
-                                    </Form.Group>
-                                    : formData.category === '사진'
-                                        ? <Form.Group controlId="formFile" className="mb-3">
-                                            <Form.Label>사진 등록</Form.Label>
-                                            <Form.Control type="file" name="contents" onChange={handleChange} accept="image/*" />
-                                        </Form.Group>
-                                        : <textarea
-                                            type="text"
-                                            placeholder="광고 텍스트 내용"
-                                            name="contents"
-                                            value={formData.contents}
-                                            onChange={handleTextareaChange}>
-                                        </textarea>
+                                    : <textarea
+                                        type="text"
+                                        placeholder="광고 텍스트 내용"
+                                        name="content"
+                                        value={formData.content}
+                                        onChange={handleTextareaChange}>
+                                    </textarea>
                         }
                         목표 횟수
                         {

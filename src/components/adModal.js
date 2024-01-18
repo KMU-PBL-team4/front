@@ -15,13 +15,6 @@ const AdModal = (props) => {
         regDate: new Date().getTime(),
     });
 
-    useEffect(() => {
-        if (props.isEdit) {
-            setFormData(props.propsFormData)
-            setIsEditing(true);
-        }
-    }, [props.isEdit]);
-
     const handleSelectChange = (event) => {
         const value = event.target.value;
         setFormData((prevData) => ({
@@ -34,6 +27,7 @@ const AdModal = (props) => {
         const { name, value, files } = event.target;
 
         if (name === 'startExposure' || name === 'endExposure') {
+            console.log(value)
             const exposureTime = Date.parse(value)
 
             setFormData((prevData) => ({
@@ -77,6 +71,7 @@ const AdModal = (props) => {
     };
 
     function formatDate(epochTime) {
+        console.log(epochTime)
         const today = new Date(epochTime)
         const year = today.getFullYear();
         const month = (today.getMonth() + 1).toString().padStart(2, '0');
@@ -86,6 +81,28 @@ const AdModal = (props) => {
         const formattedDate = `${year}년 ${month}월 ${date}일 ${hours}:${minutes}`;
         return formattedDate;
     }
+
+    function formatEpochTime(epochTime) {
+        const date = new Date(epochTime);
+
+        // 각 부분을 가져와서 조합
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+
+        // 날짜 및 시간을 조합하여 반환
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    }
+
+
+    useEffect(() => {
+        if (props.isEdit) {
+            setFormData(props.propsFormData)
+            setIsEditing(true);
+        }
+    }, [props.isEdit]);
 
     return (
         <>
@@ -107,10 +124,17 @@ const AdModal = (props) => {
                         게시기간
 
                         <div className="modal-contents-date">
-
-                            <input type="datetime-local" placeholder="시작 날짜" name="startExposure" onChange={handleChange} />
-                            <span>~</span>
-                            <input type="datetime-local" placeholder="종료 날짜" name="endExposure" onChange={handleChange} />
+                            {
+                                isEditing === true
+                                    ? <><input type="datetime-local" placeholder="시작 날짜" name="startExposure" defaultValue={formatEpochTime(formData.startExposure)} onChange={handleChange} />
+                                        <span>~</span>
+                                        <input type="datetime-local" placeholder="종료 날짜" name="endExposure" defaultValue={formatEpochTime(formData.endExposure)} onChange={handleChange} />
+                                    </>
+                                    : <><input type="datetime-local" placeholder="시작 날짜" name="startExposure" onChange={handleChange} />
+                                        <span>~</span>
+                                        <input type="datetime-local" placeholder="종료 날짜" name="endExposure" onChange={handleChange} />
+                                    </>
+                            }
                         </div>
                         {
                             formData.category === '영상'
